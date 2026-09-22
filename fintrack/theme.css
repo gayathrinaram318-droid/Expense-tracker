@@ -1,0 +1,325 @@
+/* Theme Toggle Styling */
+
+.btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.btn-icon:hover {
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 12px rgba(107, 87, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.btn-icon svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  fill: none;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-icon .hidden {
+  opacity: 0;
+  transform: scale(0.8) rotate(-90deg);
+  pointer-events: none;
+  position: absolute;
+}
+
+.btn-icon .icon-sun,
+.btn-icon .icon-moon {
+  position: relative;
+}
+
+/* Light theme adjustments */
+:root[data-theme="light"] .btn-icon {
+  background: rgba(0, 0, 0, 0.06);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+:root[data-theme="light"] .btn-icon:hover {
+  background: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 12px rgba(107, 87, 255, 0.15);
+}
+
+:root[data-theme="light"] .btn-ghost {
+  background: rgba(255, 255, 255, 0.95);
+  color: #1a2744;
+  border: 1px solid rgba(26, 39, 68, 0.16);
+  box-shadow: 0 14px 28px rgba(26, 39, 68, 0.08);
+}
+
+:root[data-theme="light"] .btn-ghost:hover {
+  background: rgba(255, 255, 255, 1);
+  border-color: rgba(26, 39, 68, 0.24);
+}
+
+:root[data-theme="light"] .status-chip,
+:root[data-theme="light"] .topbar-actions .status-chip {
+  background: rgba(255, 255, 255, 0.95);
+  color: #1a2744;
+  border: 1px solid rgba(26, 39, 68, 0.14);
+  box-shadow: 0 14px 30px rgba(26, 39, 68, 0.08);
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.3);
+}
+
+:root[data-theme="light"] .status-chip:hover,
+:root[data-theme="light"] .topbar-actions .status-chip:hover {
+  background: rgba(255, 255, 255, 1);
+}
+
+/* Topbar adjustments for both themes */
+:root[data-theme="light"] .topbar {
+  color: #1a2744;
+}
+
+:root[data-theme="light"] .topbar h2,
+:root[data-theme="light"] .topbar p {
+  color: #1a2744;
+}
+
+:root[data-theme="light"] .topbar-actions .status-chip {
+  background: rgba(236, 242, 250, 0.95);
+  color: #1a2744;
+  border: 1px solid rgba(26, 39, 68, 0.12);
+  box-shadow: 0 8px 24px rgba(26, 39, 68, 0.06);
+}
+
+/* Sidebar theme */
+:root[data-theme="light"] .sidebar {
+  background: linear-gradient(180deg, rgba(245, 247, 251, 0.96), rgba(240, 245, 250, 0.96));
+}
+
+:root[data-theme="light"] .brand h1 {
+  color: #1a2744;
+}
+
+:root[data-theme="light"] .brand p {
+  color: #647895;
+}
+
+:root[data-theme="light"] .sidebar a {
+  color: #1a2744;
+}
+
+:root[data-theme="light"] .sidebar a.active,
+:root[data-theme="light"] .sidebar a:hover {
+  background: rgba(107, 87, 255, 0.12);
+}
+
+/* Cards theme */
+:root[data-theme="light"] .glass-card {
+  background: rgba(248, 250, 254, 0.92);
+}
+
+:root[data-theme="light"] .alert-card {
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(26, 39, 68, 0.12);
+}
+
+:root[data-theme="light"] .alert-card p,
+:root[data-theme="light"] .alert-card .card-header p,
+:root[data-theme="light"] .alert-card .card-header h3 {
+  color: #1a2744;
+}
+
+:root[data-theme="light"] .alert-card p#insightText {
+  color: #3b4c6e;
+}
+
+/* Form inputs theme */
+:root[data-theme="light"] .transaction-form input,
+:root[data-theme="light"] .transaction-form select {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.08);
+  color: #1a2744;
+}
+
+:root[data-theme="light"] .transaction-form input::placeholder {
+  color: rgba(100, 120, 149, 0.6);
+}
+
+:root[data-theme="light"] .transaction-form input:focus,
+:root[data-theme="light"] .transaction-form select:focus {
+  background: rgba(0, 0, 0, 0.06);
+  border-color: rgba(107, 87, 255, 0.5);
+  box-shadow: 0 0 0 5px rgba(107, 87, 255, 0.1),
+    inset 0 0 20px rgba(107, 87, 255, 0.05);
+}
+
+:root[data-theme="light"] select option {
+  background: #f8f9fc;
+  color: #1a2744;
+}
+
+:root[data-theme="light"] select option:checked {
+  background: rgba(107, 87, 255, 0.25);
+  color: #1a2744;
+}
+
+/* Table theme */
+:root[data-theme="light"] .transaction-table th {
+  color: #647895;
+}
+
+:root[data-theme="light"] .transaction-table td {
+  color: #1a2744;
+}
+
+:root[data-theme="light"] .transaction-table td .tag {
+  background: rgba(0, 0, 0, 0.05);
+  color: #647895;
+}
+
+:root[data-theme="light"] .empty-state-icon {
+  color: #647895;
+}
+
+:root[data-theme="light"] .empty-state-content h3 {
+  color: #1a2744;
+}
+
+:root[data-theme="light"] .empty-state-content p {
+  color: #647895;
+}
+
+:root[data-theme="light"] #loadingScreen {
+  background: rgba(248, 250, 254, 0.96);
+  backdrop-filter: blur(14px);
+}
+
+:root[data-theme="light"] .loading-card {
+  background: rgba(255, 255, 255, 0.96);
+  border-color: rgba(26, 39, 68, 0.08);
+  box-shadow: 0 30px 80px rgba(26, 39, 68, 0.08);
+}
+
+:root[data-theme="light"] .loading-copy h2 {
+  color: #1a2744;
+}
+
+:root[data-theme="light"] .loading-copy p {
+  color: #647895;
+}
+
+/* Toast notifications light mode */
+:root[data-theme="light"] .toast {
+  backdrop-filter: blur(18px);
+  background: rgba(248, 250, 254, 0.92);
+  border-color: rgba(26, 39, 68, 0.1);
+  color: #1a2744;
+  box-shadow: 0 8px 32px rgba(26, 39, 68, 0.08);
+}
+
+:root[data-theme="light"] .toast-success {
+  background: rgba(236, 253, 245, 0.95);
+  border-color: rgba(16, 185, 129, 0.2);
+  color: #059669;
+}
+
+:root[data-theme="light"] .toast-delete {
+  background: rgba(254, 242, 242, 0.95);
+  border-color: rgba(244, 114, 124, 0.2);
+  color: #dc2626;
+}
+
+:root[data-theme="light"] .toast-error {
+  background: rgba(254, 242, 242, 0.95);
+  border-color: rgba(239, 68, 68, 0.2);
+  color: #dc2626;
+}
+
+:root[data-theme="light"] .search-box input {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.08);
+  color: #1a2744;
+}
+
+:root[data-theme="light"] .search-box input::placeholder {
+  color: rgba(100, 120, 149, 0.6);
+}
+
+/* Progress bar theme */
+:root[data-theme="light"] .progress-track {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+/* Mini metrics theme */
+:root[data-theme="light"] .mini-metrics div {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+/* Auth page theme */
+:root[data-theme="light"] .auth-shell {
+  background: rgba(248, 250, 254, 0.92);
+}
+
+:root[data-theme="light"] .auth-intro h1 {
+  color: #1a2744;
+}
+
+:root[data-theme="light"] .auth-intro p {
+  color: #647895;
+}
+
+:root[data-theme="light"] .auth-form input {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.08);
+  color: #1a2744;
+}
+
+:root[data-theme="light"] .auth-form label {
+  color: #647895;
+}
+
+:root[data-theme="light"] .small-text {
+  color: #647895;
+}
+
+/* Status chip theme */
+:root:not([data-theme="light"]) .btn-ghost {
+  background: rgba(255, 255, 255, 0.08);
+  color: #c8d2ff;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+:root:not([data-theme="light"]) .btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+:root:not([data-theme="light"]) .status-chip {
+  background: rgba(255, 255, 255, 0.08);
+  color: #d8e0ff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+:root:not([data-theme="light"]) .status-chip:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Smooth theme transition */
+* {
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease,
+              box-shadow 0.3s ease;
+}
+
+button {
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+input,
+select {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease,
+              box-shadow 0.3s ease;
+}

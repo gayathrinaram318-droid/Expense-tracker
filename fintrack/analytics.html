@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinTrack — Analytics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="theme.css" />
+</head>
+<body class="dashboard-page">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="brand">
+          <h1>FinTrack</h1>
+          <p>Personal Finance Manager</p>
+        </div>
+        <button id="mobileMenuClose" class="btn btn-icon sidebar-close-btn" aria-label="Close menu">&times;</button>
+      </div>
+      <nav>
+        <a href="index.html"><span>Dashboard</span></a>
+        <a class="active" href="analytics.html"><span>Analytics</span></a>
+        <a href="goals.html"><span>Savings Goals</span></a>
+      </nav>
+      <div class="sidebar-footer">
+        <button id="logoutBtn" class="btn btn-ghost">Log Out</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <h2>Analytics Overview</h2>
+          <p>Track trends, category usage, and spending rhythm.</p>
+        </div>
+        <div class="topbar-actions">
+          <button id="mobileMenuToggle" class="btn btn-icon mobile-menu-btn" aria-label="Open menu">
+            <span class="hamburger-icon" aria-hidden="true"></span>
+          </button>
+          <button id="themeToggle" class="btn btn-icon" aria-label="Toggle theme">
+            <svg class="icon-sun visible" width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="4" stroke="currentColor" stroke-width="2"/>
+              <path d="M10 1V3M10 17V19M1 10H3M17 10H19M3 3L4.41 4.41M15.59 15.59L17 17M17 3L15.59 4.41M4.41 15.59L3 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <svg class="icon-moon hidden" width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M17.293 13.293A8 8 0 016.707 2.707a8 8 0 1010.586 10.586z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <section class="dashboard-grid">
+        <div class="card glass-card">
+          <div class="card-header">
+            <p>Top Spending Category</p>
+            <h3 id="topCategory">Loading...</h3>
+          </div>
+        </div>
+        <div class="card glass-card">
+          <div class="card-header">
+            <p>Average Expense</p>
+            <h3 id="averageExpense">$0.00</h3>
+          </div>
+        </div>
+        <div class="card glass-card">
+          <div class="card-header">
+            <p>Budget Health</p>
+            <h3 id="budgetHealth">Stable</h3>
+          </div>
+        </div>
+      </section>
+
+      <section class="card glass-card">
+        <div class="section-header">
+          <div>
+            <h3>Expense by Category</h3>
+            <p>See where your money goes most.</p>
+          </div>
+        </div>
+        <canvas id="categoryChart" height="220"></canvas>
+      </section>
+
+      <section class="card glass-card">
+        <div class="section-header">
+          <div>
+            <h3>Monthly Spending Trend</h3>
+            <p>Inspect your recent budget performance.</p>
+          </div>
+        </div>
+        <canvas id="trendChart" height="220"></canvas>
+      </section>
+    </main>
+  </div>
+
+  <script src="theme.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="module">
+    import { initDashboard } from './app.js';
+    
+    // Initialize dashboard when page loads
+    initDashboard().catch(error => {
+      console.error('Dashboard initialization error:', error);
+    });
+  </script>
+  <script src="analytics.js"></script>
+</body>
+</html>

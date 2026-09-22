@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinTrack — Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="theme.css" />
+</head>
+<body class="auth-page">
+  <div class="auth-shell glass-card">
+    <div class="auth-intro">
+      <h1>Welcome back.</h1>
+      <p>Log in to access your finance dashboard, analytics, and savings goals.</p>
+    </div>
+    <form id="loginForm" class="auth-form">
+      <label>
+        Email
+        <input type="email" id="loginEmail" placeholder="you@example.com" required />
+      </label>
+      <label>
+        Password
+        <div class="password-wrapper">
+          <input type="password" id="loginPassword" placeholder="Enter your password" required />
+          <button type="button" class="password-toggle" aria-label="Show password">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          </button>
+        </div>
+      </label>
+      <button type="submit" id="loginSubmitBtn" class="btn btn-primary">Log In</button>
+      <p id="loginLoading" class="loading-indicator hidden">Signing in...</p>
+      <p class="small-text">Don't have an account? <a href="signup.html">Create one</a></p>
+      <p id="loginError" class="form-error"></p>
+    </form>
+
+    <!-- Email verification removed; normal login restored -->
+  </div>
+
+  <script type="module">
+    import { signInUser } from './auth.js';
+
+    const loginForm = document.getElementById('loginForm');
+    const loginError = document.getElementById('loginError');
+    const loginLoading = document.getElementById('loginLoading');
+    const loginSubmitBtn = document.getElementById('loginSubmitBtn');
+
+    // Password toggle functionality
+    document.querySelectorAll('.password-toggle').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const input = btn.parentElement.querySelector('input');
+        const isPassword = input.type === 'password';
+        input.type = isPassword ? 'text' : 'password';
+        btn.classList.toggle('visible');
+      });
+    });
+
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      loginError.textContent = '';
+
+      const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+      const password = document.getElementById('loginPassword').value;
+
+      if (!email || !password) {
+        loginError.textContent = 'Please enter your email and password.';
+        return;
+      }
+
+      loginSubmitBtn.disabled = true;
+      loginLoading.classList.remove('hidden');
+
+      try {
+        const result = await signInUser(email, password);
+
+        if (result.success) {
+          // Redirect to dashboard
+          window.location.href = 'index.html';
+        } else {
+          loginError.textContent = result.error || 'Failed to sign in. Please try again.';
+          loginSubmitBtn.disabled = false;
+          loginLoading.classList.add('hidden');
+        }
+      } catch (error) {
+        console.error('Login error:', error);
+        loginError.textContent = 'An unexpected error occurred. Please try again.';
+        loginSubmitBtn.disabled = false;
+        loginLoading.classList.add('hidden');
+      }
+    });
+  </script>
+  <script src="theme.js"></script>
+</body>
+</html>

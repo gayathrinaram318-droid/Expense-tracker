@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinTrack — Sign Up</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="theme.css" />
+</head>
+<body class="auth-page">
+  <div class="auth-shell glass-card">
+    <div class="auth-intro">
+      <h1>Start your money journey.</h1>
+      <p>Create an account and begin tracking spending, income, and savings.</p>
+    </div>
+
+    <!-- Signup Form -->
+    <form id="signupForm" class="auth-form">
+      <label>
+        Full Name
+        <input type="text" id="signupName" placeholder="Your name" required />
+      </label>
+      <label>
+        Email
+        <input type="email" id="signupEmail" placeholder="you@example.com" required />
+      </label>
+      <label>
+        Password
+        <div class="password-wrapper">
+          <input type="password" id="signupPassword" placeholder="Create a strong password" required />
+          <button type="button" class="password-toggle" aria-label="Show password">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          </button>
+        </div>
+      </label>
+      <button type="submit" id="signupSubmitBtn" class="btn btn-primary">Create Account</button>
+      <p id="signupLoading" class="loading-indicator hidden">Creating your account...</p>
+      <p class="small-text">Already registered? <a href="login.html">Log in</a></p>
+      <p id="signupError" class="form-error"></p>
+    </form>
+
+    <!-- Email verification removed; signup will proceed directly -->
+  </div>
+
+  <script type="module">
+    import { signUpUser } from './auth.js';
+
+    const signupForm = document.getElementById('signupForm');
+    const signupError = document.getElementById('signupError');
+    const signupLoading = document.getElementById('signupLoading');
+    const signupSubmitBtn = document.getElementById('signupSubmitBtn');
+
+    // Password toggle functionality
+    document.querySelectorAll('.password-toggle').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const input = btn.parentElement.querySelector('input');
+        const isPassword = input.type === 'password';
+        input.type = isPassword ? 'text' : 'password';
+        btn.classList.toggle('visible');
+      });
+    });
+
+    signupForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      signupError.textContent = '';
+
+      const fullName = document.getElementById('signupName').value.trim();
+      const email = document.getElementById('signupEmail').value.trim().toLowerCase();
+      const password = document.getElementById('signupPassword').value;
+
+      // Validation
+      if (!fullName || !email || !password) {
+        signupError.textContent = 'Please complete all fields.';
+        return;
+      }
+
+      if (password.length < 6) {
+        signupError.textContent = 'Password must be at least 6 characters long.';
+        return;
+      }
+
+      // Show loading state
+      signupSubmitBtn.disabled = true;
+      signupLoading.classList.remove('hidden');
+
+      try {
+        const result = await signUpUser(email, password, fullName);
+
+        if (result.success) {
+          // After creating the account, proceed to dashboard
+          window.location.href = 'index.html';
+        } else {
+          signupError.textContent = result.error || 'Failed to create account. Please try again.';
+          signupSubmitBtn.disabled = false;
+          signupLoading.classList.add('hidden');
+        }
+      } catch (error) {
+        console.error('Signup error:', error);
+        signupError.textContent = 'An unexpected error occurred. Please try again.';
+        signupSubmitBtn.disabled = false;
+        signupLoading.classList.add('hidden');
+      }
+    });
+  </script>
+  <script src="theme.js"></script>
+</body>
+</html>
